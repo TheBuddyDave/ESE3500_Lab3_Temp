@@ -193,10 +193,92 @@ We had 2 ticks...
 Lets convert the ticks to seconds. Note that we were using a 16-bit timer with as 1024-prescale. So 65535 ticks takes 65535/16000000 = 0.0041 * 1024 = 4.1984 seconds per cycle. 
 
 We have 2 ticks so the total time was: 
-(2/65535) * (4.1984) = 0.0103 seconds
+(2/65535) * (4.1984) = 0.00013 seconds
 
 Now to calculate: 
-0.0103 seconds * (343 m/s) / 2 = .022 meter = 2.19 cm
+0.00013 seconds * (343 m/s) / 2 = .0219 meter = 2.19 cm
 
 # (I6)	Attach an image from the oscilloscope showing (about) the smallest distance.
 ![alt text](Image_I6.jpg)
+
+
+# Code for Ref:  
+''
+
+    //LAb 3 - Part C.
+    void Initialize() {    
+        //Configure da pins ty shi
+        DDRB |= (1 << LED_PIN);
+        DDRD |= (1 << PD6);
+        DDRD &= ~(1 << PD5);
+        DDRB &= ~(1 << PB0);
+
+        //Edge settings:
+        TCCR1B |= (1 << 6);
+
+        //interrupt enabled:
+        TIMSK1 |= (1 << 5);    
+    
+        // Clear prescaler bits first
+        TCCR1B &= ~((1 << CS12) | (1 << CS11) | (1 << CS10));
+
+        // Set prescaler to 1024 (CS12=1, CS11=0, CS10=1)
+        TCCR1B |= (1 << CS12) | (1 << CS10);  
+    
+        sei();
+    }
+
+
+    static volatile int send = 1;
+
+    ISR(TIMER1_CAPT_vect) {
+        if (TCCR1B & (1 << 6)) {      
+        TCCR1B &= ~(1 << 6);
+        send = 0;
+        TCNT1 = 0 ;
+        } else {
+        TCCR1B |= (1 << 6);
+        uint16_t val = TCNT1;
+        printf("READ: %u\r\n", val);
+        send = 1;
+        }
+    }
+
+
+
+    int main(void) {
+    printf("socoboo\r\n");
+    Initialize();
+        uart_init();
+        while (1) {      
+            if (send) {
+                PORTD |= (1 << PD6);  
+                _delay_us(10);        // 10 microsecond delay
+                PORTD &= ~(1 << PD6);
+            }
+        }
+        return 0;
+    }
+
+
+''
+
+
+
+## Part D: Generating Different Tones
+
+# (R10)	Fill in the table below with the correct OCR0A values that will yield the required frequency. You will have to choose a prescaler that will allow for the entire range to be generated with just one timer. Rounding errors are expected. Specify the timer frequency, waveform generation mode, and output compare mode (if any) used.
+
+
+
+
+
+
+
+
+| Note      |  C6  |  D6  |  E6  |  F6  |  G6  |  A6  |  B6  |  C7  |
+|-----------|:----:|:----:|:----:|:----:|:----:|:----:|:----:|:----:|
+| Freq (Hz) | 1046 | 1174 | 1318 | 1397 | 1568 | 1760 | 1975 | 2093 |
+| OCR0A     |      |      |      |      |      |      |      |      |
+|           |      |      |      |      |      |      |      |      |
+
