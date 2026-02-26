@@ -153,3 +153,50 @@ OCR0A should be 35 this time, since we compare both when we count up and when we
 
 
 # (I4)	Attach an image from the oscilloscope showing both waveforms.![alt text](Image_I4.png)
+
+
+
+## Part C: Measuring Distance
+
+# (R6)	Reading through the datasheet (and another relevant datasheet of HC-SR04), what is the length or duration of the pulse that needs to be supplied to start the ranging?
+
+The pulse needs to be at least 10 micro seconds (10us) in order to trigger the ultrasonic sensor detection. 
+
+# (R7)	What are the Trig and Echo pins used for?  
+The the Trig pin is used to start the sensing for the ultrasonic sensor (we drive it high for 10 microseconds to start the sensing). The Echo pin is used to read the sensors outuput (the duration that echo is on correlates to the distance). 
+
+# (R8)	What is the largest distance (in cm) that you observed printed out in the terminal?
+
+ANSWER: 176.6 cm
+
+We had 162 ticks... 
+
+Lets convert the ticks to seconds. Note that we were using a 16-bit timer with as 1024-prescale. So 65535 ticks takes 65535/16000000 = 0.0041 * 1024 = 4.1984 seconds per cycle. 
+
+We have 736 ticks so the total time was: 
+(162/65535) * (4.1984) = 0.0103 seconds
+
+Now to calculate: 
+0.0103 seconds * (343 m/s) / 2 = 1.76645 meters = 176.6 cm
+
+(Note this is largest STABLE signal we could get since the room is very noisy in terms of object distance). 
+
+# (I5)	Attach an image from the oscilloscope showing (about) the most significant distance.
+![alt text](Image_I5.jpg)
+
+
+# (R9)	What is the smallest distance (in cm) that you observed printed out in the terminal?
+ANSWER: 2.19 cm
+
+We had 2 ticks... 
+
+Lets convert the ticks to seconds. Note that we were using a 16-bit timer with as 1024-prescale. So 65535 ticks takes 65535/16000000 = 0.0041 * 1024 = 4.1984 seconds per cycle. 
+
+We have 2 ticks so the total time was: 
+(2/65535) * (4.1984) = 0.0103 seconds
+
+Now to calculate: 
+0.0103 seconds * (343 m/s) / 2 = .022 meter = 2.19 cm
+
+# (I6)	Attach an image from the oscilloscope showing (about) the smallest distance.
+![alt text](Image_I6.jpg)
