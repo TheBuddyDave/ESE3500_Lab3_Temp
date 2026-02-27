@@ -269,16 +269,33 @@ Now to calculate:
 
 # (R10)	Fill in the table below with the correct OCR0A values that will yield the required frequency. You will have to choose a prescaler that will allow for the entire range to be generated with just one timer. Rounding errors are expected. Specify the timer frequency, waveform generation mode, and output compare mode (if any) used.
 
+From the Slides we know: 
+Count = ( (f_clk) / (2 * N * f_d) )  - 1 
 
+We will use a prescalar of 64 in order to ensure we do not overflow our OCR0A. 
 
-
-
-
-
+We will use CTC, so we are in normal mode. 
 
 | Note      |  C6  |  D6  |  E6  |  F6  |  G6  |  A6  |  B6  |  C7  |
 |-----------|:----:|:----:|:----:|:----:|:----:|:----:|:----:|:----:|
 | Freq (Hz) | 1046 | 1174 | 1318 | 1397 | 1568 | 1760 | 1975 | 2093 |
-| OCR0A     |      |      |      |      |      |      |      |      |
+| OCR0A     | 120  | 106  |  95  |  89  |  80  |  71  |  63  |  59  |
 |           |      |      |      |      |      |      |      |      |
+
+
+# (R11)	Write your linear formula here. It should look something like: OCR0A = SENSOR_VALUE * SOME_RATIO + SOME_NUMBER
+
+Our minimum and maximum (clean) tick counts for echo are 2 and 162 respectively. Additionally, our PWN range for OCR0A is min = 59, max = 120. 
+
+So naturally, we will linearly interpolate the notes relative to the distance as follows: 
+
+OCR0A = (num_ticks / 162) * 61 + 59
+
+# (C1)	Save this code as part_d1.c
+Check files. 
+
+# (C2)	Save this code as part_d1.c
+Check files. 
+
+
 
