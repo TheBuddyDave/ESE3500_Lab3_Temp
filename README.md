@@ -295,7 +295,35 @@ OCR0A = (num_ticks / 162) * 61 + 59
 Check files. 
 
 # (C2)	Save this code as part_d1.c
-Check files. 
+Check files.
 
+# (R12)	What are the maximum and minimum ADC values read?
+1006 maximum, 244 minimum 
 
+# (R13)	Fill in the table below with your ADC ranges. R12 gives you the minimum and maximum values from your sensor to help you divide evenly across the usable range.
 
+| ADC Ranges | Duty Cycle |  
+|:----------:|:----------:|
+|    <320    |     5%     | 
+|   321-396  |     10%    |  
+|   397-472  |     15%    |      
+|   473-548  |     20%    |   
+|   549-624  |     25%    |   
+|   625-700  |     30%    |   
+|   701-776  |     35%    |     
+|   777-852  |     40%    |     
+|   853-928  |     45%    |     
+|    >928    |     50%    |    
+
+# (C3)	Save the code in part_e.c
+Check files
+
+# (S4)	Take a screenshot of your terminal with varying outputs printed out.
+![alt text](Image_S4.png)
+
+# (R14)	Draw your final circuit and attach an image. This can be done digitally (Circuit Lab, Altium, LTSpice, etc.) or by hand - just ensure it’s clear and complete.
+
+# (C4)	Submit your file as part_f.c
+Check files 
+
+# (T1)	Meet with a teaching team member for a demo + quick explanation of the content below. 
