@@ -2,7 +2,7 @@
 
 # Timer Overflow 
 ## (R1) What frequency is being generated here? Is it what you expected? Show your work.
-The frequency being generated is 488Hz as shown in the scope image. This is exactly the frequency that we expected since we're using the 8-bit timer0 with a prescale of 64. Thus, f_desired = 16MHz/2*64*256 = 488Hz. 
+The frequency being generated is 488Hz as shown in the scope image. This is exactly the frequency that we expected since we're using the 8-bit timer0 with a prescale of 64. Thus, f_desired = 16MHz/2 * 64 * 256 = 488Hz. 
 
 ## (I1)	Attach an image from the oscilloscope showing both waveforms.
 ![alt text](Image_I1.png)
@@ -13,7 +13,7 @@ The frequency being generated is 488Hz as shown in the scope image. This is exac
 We did not have to prescale the system clock since we know from R1 that generating a frequency in the 400Hz range is possible by only using a timer prescalar. We prescaled the timer clock by 256 this time and relied on output compare to get it to exactly 440Hz. 
 
 ## (R3) What number should OCR0A be in this case? 
-We set OCR0A = 70, derived from the formula count = 16MHz/(2*256*440Hz) - 1 = 70.
+We set OCR0A = 70, derived from the formula count = 16MHz/(2 * 256 * 440Hz) - 1 = 70.
 
 ## (S1)	Attach a screenshot of your code snippet or copy & paste the snippet into a box in the submission document. It should be quite short.
 
