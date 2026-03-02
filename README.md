@@ -2,7 +2,7 @@
 
 # Timer Overflow 
 ## (R1) What frequency is being generated here? Is it what you expected? Show your work.
-TODO 
+The frequency being generated is 488Hz as shown in the scope image. This is exactly the frequency that we expected since we're using the 8-bit timer0 with a prescale of 64. Thus, f_desired = 16MHz/2*64*256 = 488Hz. 
 
 ## (I1)	Attach an image from the oscilloscope showing both waveforms.
 ![alt text](Image_I1.png)
@@ -10,7 +10,7 @@ TODO
 
 # Normal Mode
 ## (R2)	Did you have to prescale the system clock and/or timer clock? If so, by how much?
-We did not have to prescale the system clock, but we prescaled the timer clock by 256.
+We did not have to prescale the system clock since we know from R1 that generating a frequency in the 400Hz range is possible by only using a timer prescalar. We prescaled the timer clock by 256 this time and relied on output compare to get it to exactly 440Hz. 
 
 ## (R3) What number should OCR0A be in this case? 
 We set OCR0A = 70, derived from the formula count = 16MHz/(2*256*440Hz) - 1 = 70.
@@ -110,7 +110,7 @@ OCR0A should still be 70 (same as Part 2)
 
 # PWM Mode
 # (R5)	What number should OCR0A be in this case? Specify which Phase Correct mode you use - namely, what is the TOP value? (Refer to Table 18-9 in the datasheet). 
-OCR0A should be 35 this time, since we compare both when we count up and when we count down. Twice the compare means 1/2 the count. 
+OCR0A should be 35 this time, since we compare both when we count up and when we count down. Twice the compare means 1/2 the count. We used mode 5 in the datasheet with TOP = OCR0A. 
 
 # (S3)	Attach a screenshot of your code snippet.
 
@@ -272,9 +272,7 @@ Now to calculate:
 From the Slides we know: 
 Count = ( (f_clk) / (2 * N * f_d) )  - 1 
 
-We will use a prescalar of 64 in order to ensure we do not overflow our OCR0A. 
-
-We will use CTC, so we are in normal mode. 
+We will use CTC mode, with a timer prescalar of 64 in order to ensure we do not overflow our OCR0A. 
 
 | Note      |  C6  |  D6  |  E6  |  F6  |  G6  |  A6  |  B6  |  C7  |
 |-----------|:----:|:----:|:----:|:----:|:----:|:----:|:----:|:----:|
@@ -322,7 +320,7 @@ Check files
 ![alt text](Image_S4.png)
 
 # (R14)	Draw your final circuit and attach an image. This can be done digitally (Circuit Lab, Altium, LTSpice, etc.) or by hand - just ensure it’s clear and complete.
-
+![alt text](<Lab3 Part F Schematic.png>)
 
 # (C4)	Submit your file as part_f.c
 Check files 
